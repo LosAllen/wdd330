@@ -17,7 +17,7 @@ h1 {
 }
 
 .item {
-    background-color: white;
+    background-color: rgb(63, 63, 63);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@ h1 {
 }
 
 #cart {
-    background-color: white;
+    background-color: rgb(63, 63, 63);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
