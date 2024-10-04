@@ -1,23 +1,39 @@
-// wrapper for querySelector...returns matching element
-export function qs(selector, parent = document) {
-  return parent.querySelector(selector);
-}
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
+// utils.mjs
 
-// retrieve data from localstorage
+// Get data from localStorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : [];
 }
-// save data to local storage
+
+// Save data to localStorage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
-export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
+
+// Clear a specific key from localStorage
+export function clearLocalStorage(key) {
+  localStorage.removeItem(key);
+}
+
+// Utility to format currency (for cart totals, product prices, etc.)
+export function formatCurrency(amount) {
+  return `$${amount.toFixed(2)}`;
+}
+
+// Utility to retrieve query parameters from the URL (useful for product pages)
+export function getQueryParameter(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Debounce function to limit the frequency of events (e.g., search input, scroll events)
+export function debounce(func, delay = 300) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
 }
