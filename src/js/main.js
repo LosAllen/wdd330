@@ -6,51 +6,48 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Function to dynamically load the header
   function loadHeader() {
-    const headerElement = document.getElementById('dynamic-header');
-    if (headerElement) {
-      fetch('/partials/header.html')
-        .then(response => response.text())
-        .then(data => {
-          headerElement.innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error loading header:', error); // Allow the console for error handling
-        });
-    }
+    fetch('/partials/header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('dynamic-header').innerHTML = data;
+      });
   }
   
-  // Function to dynamically load the footer
   function loadFooter() {
-    const footerElement = document.getElementById('dynamic-footer');
-    if (footerElement) {
-      fetch('/partials/footer.html')
-        .then(response => response.text())
-        .then(data => {
-          footerElement.innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error loading footer:', error); // Allow the console for error handling
-        });
-    }
+    fetch('/partials/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('dynamic-footer').innerHTML = data;
+      });
   }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    loadHeader();
+    loadFooter();
+  });
+  
   
   // Function to retrieve the cart from localStorage
-  function getCart() {
-    const cart = localStorage.getItem('cart');
-    return cart ? JSON.parse(cart) : [];
-  }
+function getCart() {
+  const cart = localStorage.getItem('cart');
+  return cart ? JSON.parse(cart) : [];
+}
   
-  // Function to update cart icon count (for display in header)
-  function updateCartCount() {
-    const cart = getCart();
-    const cartCountElement = document.querySelector('.cart-count');
-    if (cartCountElement) {
-      cartCountElement.textContent = cart.reduce((count, item) => count + item.quantity, 0);
-    }
+// Ensure the function is defined
+function updateCartCount() {
+  const cart = getCart(); // Assuming getCart is a function that retrieves the cart
+  const cartCountElement = document.querySelector('.cart-count');
+  if (cartCountElement) {
+    cartCountElement.textContent = cart.reduce((count, item) => count + item.quantity, 0);
   }
+}
+
+// Export the function
+export { updateCartCount };
+
   
   // Call this to update cart count after page load
-  document.addEventListener('DOMContentLoaded', () => {
-    updateCartCount();
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+});
   
